@@ -31,16 +31,10 @@ function upload(response, request) {
   console.log("about to parse");
   form.parse(request, function(error, fields, files) {
     console.log("parsing done");
-    //
-    // response.writeHead(200, {"Content-Type": "text/html"});
-    // response.write("received image:<br/>");
-    // response.write("<img src='/show' />");
-    // response.end();
 
     var oldpath =files.upload.path;
-    // console.log(files.upload.path);
-    // console.log(files.upload.name);
-    var newpath = '/Users/kyleranslam/Desktop/Test/' + files.upload.name;
+
+    var newpath = './' + files.upload.name;
      fs.rename(oldpath, newpath, function (err) {
        if (err) throw err;
        response.write('File uploaded and moved!');
