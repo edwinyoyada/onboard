@@ -1,6 +1,7 @@
 var querystring = require("querystring"),
     fs = require("fs"),
-    formidable = require("formidable");
+    formidable = require("formidable"),
+    req = require("request");
 
 function start(response) {
   console.log("Request handler 'start' was called.");
@@ -33,13 +34,25 @@ function upload(response, request) {
     console.log("parsing done");
 
     var oldpath =files.upload.path;
-
     var newpath = './' + files.upload.name;
+
      fs.rename(oldpath, newpath, function (err) {
        if (err) throw err;
-       response.write('File uploaded and moved!');
-       response.end();
+
+       req({
+         uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
+      method: "POST",
+      form: {
+        url: [request.headers.referer + files.upload.name]
+      }
+     }, function(error, response, body) {
+      console.log(body);
+      response.write(body);
+      response.end();
+       });
+
      });
+
   });
 }
 
