@@ -42,13 +42,12 @@ function upload(response, request) {
        req({
          uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
       method: "POST",
-      form: {
+      json: {
         url: [request.headers.referer + files.upload.name]
       }
     }, function(error, res, body) {
-      console.log(body);
-      response.write(body);
-      response.end();
+      res.write(JSON.stringify(body));
+      res.end();
        });
 
      });
