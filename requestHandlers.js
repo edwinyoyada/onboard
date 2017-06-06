@@ -34,7 +34,7 @@ function upload(response, request) {
     console.log("parsing done");
 
     var oldpath =files.upload.path;
-    var newpath = './' + files.upload.name;
+    var newpath = 'img/' + files.upload.name;
 
      fs.rename(oldpath, newpath, function (err) {
        if (err) throw err;
@@ -45,7 +45,7 @@ function upload(response, request) {
       form: {
         url: [request.headers.referer + files.upload.name]
       }
-     }, function(error, response, body) {
+    }, function(error, res, body) {
       console.log(body);
       response.write(body);
       response.end();

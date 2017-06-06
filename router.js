@@ -1,12 +1,17 @@
-function route(handle, pathname, response, request) {
+var finalhandler = require('finalhandler')
+var serveStatic = require('serve-static')
+
+function route(handle, pathname, res, req) {
   console.log("About to route a request for " + pathname);
   if (typeof handle[pathname] === 'function') {
-    handle[pathname](response, request);
+    handle[pathname](res, req);
   } else {
     console.log("No request handler found for " + pathname);
-    response.writeHead(404, {"Content-Type": "text/html"});
-    response.write("404 Not found");
-    response.end();
+     var serve = serveStatic('./img', {
+  'index': false,
+});
+     serve(req, res, finalhandler(req, res));
+
   }
 }
 
