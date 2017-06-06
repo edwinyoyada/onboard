@@ -46,8 +46,8 @@ function upload(response, request) {
         url: [request.headers.referer + files.upload.name]
       }
     }, function(error, res, body) {
-      res.write(JSON.stringify(body));
-      res.end();
+      response.write(JSON.stringify(body));
+      response.end();
        });
 
      });
