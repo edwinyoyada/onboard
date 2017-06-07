@@ -20,6 +20,14 @@ function start(response) {
 function upload(response, request) {
   console.log("Request handler 'upload' was called.");
 
+  if(request.method == 'get') {
+    response.writeHead(302, {
+      'Location': '/'
+      //add other headers here...
+    });
+    response.end();
+  }
+
   var form = new formidable.IncomingForm();
   console.log("about to parse");
 
