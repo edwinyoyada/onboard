@@ -47,6 +47,7 @@ function upload(response, request) {
 
     var oldpath =files.upload.path;
     var newpath = 'img/' + files.upload.name;
+    const folder = 'img/';
 
      fs.rename(oldpath, newpath, function (err) {
        if (err) throw err;
@@ -55,7 +56,7 @@ function upload(response, request) {
          uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
       method: "POST",
       json: {
-        url: [request.headers.referer + files.upload.name]
+        url: [request.headers.referer + folder + files.upload.name]
       }
     }, function(error, res, body) {
 

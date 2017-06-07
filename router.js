@@ -7,7 +7,7 @@ function route(handle, pathname, res, req) {
     handle[pathname](res, req);
   } else {
     console.log("No request handler found for " + pathname);
-     var serve = serveStatic('./img', {
+     var serve = serveStatic('./', {
   'index': false,
 });
      serve(req, res, finalhandler(req, res));
