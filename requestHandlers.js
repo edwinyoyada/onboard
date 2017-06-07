@@ -44,22 +44,16 @@ function upload(response, request) {
         uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
         method: "POST",
         json: {
-          url: request.headers.referer + 'img/' + files.upload.name
+          url: 'http://i.imgur.com/v2aUkKZ.jpg' //request.headers.referer + 'img/' + files.upload.name
         }
       }, function(error, res, body) {
-
-        var value = { message: 'image is not a receipt'};
         if (body) {
-          value = body
+          var stream = mu.compileAndRender('./template_success.html', body);
+          stream.pipe(response);
+        } else {
+          var stream = mu.compileAndRender('./template_error.html', { message: 'image is not a receipt' });
+          stream.pipe(response);
         }
-
-        response.write(JSON.stringify(value, null, 4));
-        response.end();
-        return;
-
-        // mu.compileAndRender('./template.html', {name: "john"}).on('data', function (data) {
-        //   console.log(data.toString());
-        // });;
       });
     });
 

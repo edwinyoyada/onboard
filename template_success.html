@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Set the page to the width of the device and set the zoom level -->
+  <meta name="viewport" content="width = device-width, initial-scale = 1">
+  <title> Image Upload</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <img src="img/logo.png" width="100" height="40" class="center-block img-responsive" />
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Purchase Time</div>
+        <div class="col-sm-6">{{ purchase_time }}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Receipt Id</div>
+        <div class="col-sm-6">{{ receipt_id }}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Chain</div>
+        <div class="col-sm-6">{{ chain }}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Branch</div>
+        <div class="col-sm-6">{{ branch }}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Products</div>
+        <div class="col-sm-6">
+          {{#products}}
+              Total price: {{total_price}} <br/>
+              Name: {{name}} <br/>
+              Unit price: {{unit_price}} <br/>
+              Discount: {{discount}} <br/>
+              Quantity: {{quantity}} <br/>
+          {{/products}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Price</div>
+        <div class="col-sm-6">
+              Savings: {{price.savings}} <br/>
+              Sub Total: {{price.subtotal}} <br/>
+              Total: {{price.total}} <br/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Payment</div>
+        <div class="col-sm-6">
+              Change: {{payment.change}} <br/>
+              Cash: {{payment.cash}} <br/>
+              Card: {{payment.card}} <br/>
+              Method: {{payment.method}} <br/>&nbsp;<br/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-offset-3 col-sm-6" >
+        <div class="col-sm-6">Confidence</div>
+        <div class="col-sm-6">
+              Discount: {{confidence.discount_conf}} <br/>
+              Change: {{confidence.change_conf}} <br/>
+              Total Price: {{confidence.total_price_conf}} <br/>
+              Date: {{confidence.date_conf}} <br/>
+              Payment: {{confidence.payment_conf}} <br/>
+              Price: {{confidence.price_conf}} <br/>
+              Overall: {{confidence.overall}} <br/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>
