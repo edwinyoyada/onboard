@@ -1,38 +1,19 @@
 var querystring = require("querystring"),
-    fs = require("fs"),
-    formidable = require("formidable"),
-    req = require("request");
+fs = require("fs"),
+formidable = require("formidable"),
+req = require("request");
 
 function start(response) {
   console.log("Request handler 'start' was called.");
 
   var body = fs.readFile('./index.html', function (err, html) {
     if (err) {
-        throw err;
+      throw err;
     }
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(html);
     response.end();
   });
-
-  // '<html>'+
-  //   '<head>'+
-  //   '<meta http-equiv="Content-Type" '+
-  //   'content="text/html; charset=UTF-8" />'+
-  //   '</head>'+
-  //   '<body>'+
-  //
-    // '<form action="/upload" enctype="multipart/form-data" '+
-    // 'method="post">'+
-    // '<input type="file" name="upload" multiple="multiple">'+
-    // '<input type="submit" value="Upload file" />'+
-    // '</form>'+
-  //
-  //   '</body>'+
-  //
-  //   '</html>';
-
-
 
 }
 
@@ -49,25 +30,27 @@ function upload(response, request) {
     var newpath = 'img/' + files.upload.name;
     const folder = 'img/';
 
-     fs.rename(oldpath, newpath, function (err) {
-       if (err) throw err;
+    fs.rename(oldpath, newpath, function (err) {
+      if (err) throw err;
 
-       req({
-         uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
-      method: "POST",
-      json: {
-        url: [request.headers.referer + folder + files.upload.name]
-      }
-    }, function(error, res, body) {
+      req({
+        uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
+        method: "POST",
+        json: {
+          url: request.headers.referer + folder + files.upload.name
+        }
+      }, function(error, res, body) {
 
+        var value = { message: 'image is not a receipt'};
+        if (body) {
+          value = body
+        }
 
-      //fs.writeFile('test.json', JSON.stringify( null, 4));
+        response.write(JSON.stringify(value, null, 4));
+        response.end();
+      });
 
-      response.write(JSON.stringify(body, null, 4));
-      response.end();
-       });
-
-     });
+    });
 
   });
 }
