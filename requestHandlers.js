@@ -44,7 +44,7 @@ function upload(response, request) {
         uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
         method: "POST",
         json: {
-          url: 'http://i.imgur.com/v2aUkKZ.jpg' //request.headers.referer + 'img/' + files.upload.name
+          url: request.headers.referer + 'img/' + files.upload.name
         }
       }, function(error, res, body) {
         if (body) {
