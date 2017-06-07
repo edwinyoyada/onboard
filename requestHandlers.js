@@ -6,23 +6,34 @@ var querystring = require("querystring"),
 function start(response) {
   console.log("Request handler 'start' was called.");
 
-  var body = '<html>'+
-    '<head>'+
-    '<meta http-equiv="Content-Type" '+
-    'content="text/html; charset=UTF-8" />'+
-    '</head>'+
-    '<body>'+
-    '<form action="/upload" enctype="multipart/form-data" '+
-    'method="post">'+
-    '<input type="file" name="upload" multiple="multiple">'+
-    '<input type="submit" value="Upload file" />'+
-    '</form>'+
-    '</body>'+
-    '</html>';
-
+  var body = fs.readFile('./index.html', function (err, html) {
+    if (err) {
+        throw err;
+    }
     response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(body);
+    response.write(html);
     response.end();
+  });
+
+  // '<html>'+
+  //   '<head>'+
+  //   '<meta http-equiv="Content-Type" '+
+  //   'content="text/html; charset=UTF-8" />'+
+  //   '</head>'+
+  //   '<body>'+
+  //
+    // '<form action="/upload" enctype="multipart/form-data" '+
+    // 'method="post">'+
+    // '<input type="file" name="upload" multiple="multiple">'+
+    // '<input type="submit" value="Upload file" />'+
+    // '</form>'+
+  //
+  //   '</body>'+
+  //
+  //   '</html>';
+
+
+
 }
 
 function upload(response, request) {
@@ -30,6 +41,7 @@ function upload(response, request) {
 
   var form = new formidable.IncomingForm();
   console.log("about to parse");
+
   form.parse(request, function(error, fields, files) {
     console.log("parsing done");
 
@@ -46,7 +58,11 @@ function upload(response, request) {
         url: [request.headers.referer + files.upload.name]
       }
     }, function(error, res, body) {
-      response.write(JSON.stringify(body));
+
+
+      //fs.writeFile('test.json', JSON.stringify( null, 4));
+
+      response.write(JSON.stringify(body, null, 4));
       response.end();
        });
 
@@ -55,12 +71,5 @@ function upload(response, request) {
   });
 }
 
-function show(response) {
-  console.log("Request handler 'show' was called.");
-  response.writeHead(200, {"Content-Type": "image/png"});
-  fs.createReadStream("/tmp/test.png").pipe(response);
-}
-
 exports.start = start;
 exports.upload = upload;
-exports.show = show;

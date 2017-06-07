@@ -6,6 +6,7 @@
   "dependencies": {
     "finalhandler": "^1.0.3",
     "formidable": "^1.1.1",
+    "jquery": "^3.2.1",
     "request": "^2.81.0",
     "serve-static": "^1.12.3"
   },

@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<!-- Set the page to the width of the device and set the zoom level -->
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+<title> Image Upload</title>
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+</head>
+<body>
+
+  <div class="header">
+    <img src="https://2.bp.blogspot.com/-0DZ3lQzUCok/V6gRIURzImI/AAAAAAAAHsQ/T_7cal4VIYAtdmx0Y4yoaKSS4gTPjwn5gCLcB/s1600/Snapcart%2BLogo.png" class = "img-responsive" alt="logo" />
+  </div>
+
+  <form id="form1" action="/upload" enctype="multipart/form-data"
+  method="post">
+
+  <label class="btn btn-primary btn-block">
+        <span class="glyphicon glyphicon-camera"></span>
+         <input id="upload" type="file" style="display: none;" name="upload" >
+  </label>
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $("#upload").on("change", function(){
+    $("#form1").submit();
+  });
+
+
+});
+</script>
+
+</body>
+</html>
