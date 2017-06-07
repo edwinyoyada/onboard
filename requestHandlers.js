@@ -1,12 +1,14 @@
 var querystring = require("querystring"),
 fs = require("fs"),
 formidable = require("formidable"),
-req = require("request");
+req = require("request"),
+sharp = require("sharp"),
+mu = require("mu2");
 
 function start(response) {
   console.log("Request handler 'start' was called.");
 
-  var body = fs.readFile('./index.html', function (err, html) {
+  fs.readFile('./index.html', function (err, html) {
     if (err) {
       throw err;
     }
@@ -34,18 +36,15 @@ function upload(response, request) {
   form.parse(request, function(error, fields, files) {
     console.log("parsing done");
 
-    var oldpath =files.upload.path;
-    var newpath = 'img/' + files.upload.name;
-    const folder = 'img/';
-
-    fs.rename(oldpath, newpath, function (err) {
+    sharp(files.upload.path).resize(1400).png().toFile('img/' + files.upload.name, function (err, info) {
       if (err) throw err;
+
 
       req({
         uri: "http://ocr.snapcart.id:5000/cassiopeia/api/v1.0/",
         method: "POST",
         json: {
-          url: request.headers.referer + folder + files.upload.name
+          url: request.headers.referer + 'img/' + files.upload.name
         }
       }, function(error, res, body) {
 
@@ -56,8 +55,12 @@ function upload(response, request) {
 
         response.write(JSON.stringify(value, null, 4));
         response.end();
-      });
+        return;
 
+        // mu.compileAndRender('./template.html', {name: "john"}).on('data', function (data) {
+        //   console.log(data.toString());
+        // });;
+      });
     });
 
   });
